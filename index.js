@@ -21,17 +21,16 @@ function KindError (message, opts) {
     opts = message
     message = false
   }
+  opts = kindOf(opts) === 'object' ? opts : {}
+
   if (message) {
     this.message = message
   }
-  opts = kindOf(opts) === 'object' ? opts : {}
-
   if (Object.keys(opts).length > 0) {
     for (var prop in opts) {
       this[prop] = opts[prop]
     }
   }
-
   if (this.actual) {
     this.value = this.actual
     this.actual = kindOf(this.actual)
