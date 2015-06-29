@@ -95,4 +95,13 @@ test('kind-error:', function () {
     test.equal(err.message, 'assertion')
     done()
   })
+  test('should have proper .toString()', function (done) {
+    var err = new KindError('proper to string', {name: 'ProperError'})
+
+    test.equal(err.toString(), 'ProperError: proper to string')
+    test.equal(err.toString().length > 10, true)
+    test.equal(typeof err.toString, 'function')
+    test.equal(typeof err.toString(), 'string')
+    done()
+  })
 })
