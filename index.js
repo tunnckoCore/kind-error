@@ -39,8 +39,10 @@ function KindError (message, opts) {
     this.actual = kindOf(this.actual)
   }
 
-  if (!hasOwn(this, 'stack') && this.showStack === true) {
-    Error.captureStackTrace(this, this.constructor)
+  if (this.showStack === true) {
+    if (!hasOwn(this, 'stack')) {
+      Error.captureStackTrace(this, this.constructor)
+    }
   }
 }
 
