@@ -22,6 +22,12 @@ test('kind-error:', function () {
     test.throws(fixture, /Call KindError.*/)
     done()
   })
+  test('should composed error object be instanceof Error', function (done) {
+    var err = new KindError()
+
+    test.equal(err instanceof Error, true)
+    done()
+  })
   test('should have proper name and dont have stack by default', function (done) {
     var err = new KindError()
 
