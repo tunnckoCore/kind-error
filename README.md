@@ -12,16 +12,57 @@ npm test
 ```
 
 
+## Features
+- You can customize error name with `name` property in options object.
+- By default won't have `stack` property in the composed error object.
+- You should pass `showStack: true` in options if you want stacktraces.
+- If `actual` is given, will change it to it's type, using `kindof(actual)`.
+- If `actual` and `expected` is given, will compose `message` automatically.
+
 ## Usage
 > For more use-cases see the [tests](./test.js)
 
+- `[message]` **{String|Object}** error message or `options` object
+- `[options]` **{Object}** custom error properties
+
+**Example**
+
 ```js
 var KindError = require('kind-error')
+
+var err = new KindError('foo bar', {custom: 123})
+//=> err
+// err.name => 'KindError'
+// err.message => 'foo bar'
+// err.custom => 123
+// err.stack => undefined
+
+var err = new KindError({name: 'MyCustomErr', message: 'foo bar baz'})
+//=> err
+// err.name => 'MyCustomErr'
+// err.message => 'foo bar baz'
+// err.stack => undefined
+
+var err = new KindError({
+  name: 'AssertError',
+  actual: 123,
+  expected: 'array'
+})
+//=> err
+// err.name => 'AssertError'
+// err.actual => 'number'
+// err.expected => 'array'
+// err.message => 'expected array, but number given'
+// err.stack => undefined
+
+var err = new KindError({name: 'MyError', showStack: true})
+//=> err
+// err.name => 'MyError'
+// err.stack => correct stack trace
 ```
 
 
 ## Contributing
-
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/tunnckoCore/kind-error/issues/new).  
 But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines.
 
