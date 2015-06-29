@@ -33,6 +33,7 @@ function KindError (message, opts) {
   }
 
   if (this.actual) {
+    this.value = this.actual
     this.actual = kindOf(this.actual)
   }
   if (this.actual && this.expected && !this.message) {
