@@ -19,19 +19,14 @@ function KindError (message, opts) {
   }
   if (kindOf(message) === 'object') {
     opts = message
-    message = ''
+    message = false
   }
-
-  if (!hasOwn(this, 'name')) {
-    var proto = Object.getPrototypeOf
-    var ctor = this.constructor.name
-    this.name = hasOwn(proto(this), 'name') ? this.name : ctor
+  if (message) {
+    this.message = message
   }
-
-  this.message = kindOf(message) === 'string' ? message : ''
   opts = kindOf(opts) === 'object' ? opts : {}
 
-  if (hasValues(opts)) {
+  if (Object.keys(opts).length > 0) {
     for (var prop in opts) {
       this[prop] = opts[prop]
     }
@@ -43,7 +38,7 @@ function KindError (message, opts) {
   if (this.actual && this.expected && !this.message) {
     this.message = 'expect ' + this.expected + ', but ' + this.actual + ' given'
   }
-  if (this.showStack === true && !hasOwn(this, 'stack')) {
+  if (this.showStack === true && !this.stack) {
     Error.captureStackTrace(this, this.constructor)
   }
 }
@@ -52,15 +47,3 @@ KindError.prototype = Object.create(Error.prototype, {
   constructor: {value: KindError, configurable: true, writable: true}
 })
 KindError.prototype.name = 'KindError'
-
-/**
- * utils
- */
-
-function hasOwn (self, prop) {
-  return Object.hasOwnProperty.call(self, prop)
-}
-
-function hasValues (obj) {
-  return Object.keys(obj).length > 0
-}
