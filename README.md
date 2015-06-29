@@ -16,8 +16,9 @@ npm test
 - You can customize error name with `name` property in options object.
 - By default won't have `stack` property in the composed error object.
 - You should pass `showStack: true` in options if you want stacktraces.
-- If `actual` is given, will change it to it's type, using `kindof(actual)`.
 - If `actual` and `expected` is given, will compose `message` automatically.
+- If `actual` is given, will change it to it's type, using `kindof(actual)`.
+  + it will move `actual` value to `value` property
 
 ## Usage
 > For more use-cases see the [tests](./test.js)
@@ -35,13 +36,13 @@ var err = new KindError('foo bar', {custom: 123})
 // err.name => 'KindError'
 // err.message => 'foo bar'
 // err.custom => 123
-// err.stack => undefined
+// err.stack => property not exists
 
 var err = new KindError({name: 'MyCustomErr', message: 'foo bar baz'})
 //=> err
 // err.name => 'MyCustomErr'
 // err.message => 'foo bar baz'
-// err.stack => undefined
+// err.stack => property not exists
 
 var err = new KindError({
   name: 'AssertError',
@@ -52,8 +53,9 @@ var err = new KindError({
 // err.name => 'AssertError'
 // err.actual => 'number'
 // err.expected => 'array'
+// err.value => 123
 // err.message => 'expected array, but number given'
-// err.stack => undefined
+// err.stack => property not exists
 
 var err = new KindError({name: 'MyError', showStack: true})
 //=> err
