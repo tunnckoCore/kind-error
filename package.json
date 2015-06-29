@@ -1,0 +1,19 @@
+{
+  "name": "kind-error",
+  "version": "0.0.0",
+  "description": "Correct inheriting from `Error`. Supports constructing from an object of properties - focused on assertion.",
+  "repository": "tunnckoCore/kind-error",
+  "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "standard && node test.js"
+  },
+  "dependencies": {
+    "kind-of": "^2.0.0"
+  },
+  "devDependencies": {
+    "assertit": "^0.1.0"
+  },
+  "keywords": []
+}
