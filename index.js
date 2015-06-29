@@ -38,7 +38,9 @@ function KindError (message, opts) {
   if (this.actual) {
     this.actual = kindOf(this.actual)
   }
-
+  if (this.actual && this.expected && !this.message) {
+    this.message = 'expect ' + this.expected + ', but ' + this.actual + ' given'
+  }
   if (this.showStack === true) {
     if (!hasOwn(this, 'stack')) {
       Error.captureStackTrace(this, this.constructor)
