@@ -5,6 +5,8 @@
  * Released under the MIT license.
  */
 
+/* jshint asi:true */
+
 'use strict'
 
 var kindOf = require('kind-of')
@@ -41,10 +43,8 @@ function KindError (message, opts) {
   if (this.actual && this.expected && !this.message) {
     this.message = 'expect ' + this.expected + ', but ' + this.actual + ' given'
   }
-  if (this.showStack === true) {
-    if (!hasOwn(this, 'stack')) {
-      Error.captureStackTrace(this, this.constructor)
-    }
+  if (this.showStack === true && !hasOwn(this, 'stack')) {
+    Error.captureStackTrace(this, this.constructor)
   }
 }
 
