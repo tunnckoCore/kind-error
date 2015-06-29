@@ -104,4 +104,18 @@ test('kind-error:', function () {
     test.equal(typeof err.toString(), 'string')
     done()
   })
+  test('should create `message`, if only `actual` and `expected` given', function (done) {
+    var err = new KindError({
+      name: 'AssertError',
+      actual: 123,
+      expected: 'array',
+      showStack: true
+    })
+
+    test.equal(err.name, 'AssertError')
+    test.equal(err.actual, 'number')
+    test.equal(err.expected, 'array')
+    test.equal(err.message, 'expect array, but number given')
+    done()
+  })
 })
