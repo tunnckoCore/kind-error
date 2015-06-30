@@ -65,16 +65,22 @@ var err = new KindError({name: 'MyError', showStack: true})
 
 
 ## Related
-- [assert-kindof](https://github.com/tunnckoCore/assert-kindof): Check native type of the given value and throw TypeError if not okey. Expressive, elegant, behavior-driven API, good descriptive default error messages, simple and clean syntax.
-- [always-callback](https://github.com/tunnckocore/always-callback): Create callback api for given sync function. Guarantee that given function (sync or async, no matter) will always have callback api and will handle errors correctly.
+- [assertit](https://github.com/tunnckoCore/assertit): Thin sugar layer on top of `testit` framework, `is-kindof` and… [more](https://github.com/tunnckoCore/assertit)
+- [assert-kindof](https://github.com/tunnckoCore/assert-kindof): Check native type of the given value and throw TypeError… [more](https://github.com/tunnckoCore/assert-kindof)
+- [always-callback](https://github.com/tunnckocore/always-callback): Create callback api for given sync function. Guarantee that given… [more](https://github.com/tunnckocore/always-callback)
 - [make-callback](https://github.com/tunnckocore/make-callback): Make synchronous function or generator to support callback api
-- [handle-callback](https://github.com/hybridables/handle-callback): Make promise to have support for callback api, it returns promise in that same time.
-- [handle-errors](https://github.com/hybridables/handle-errors): Handling/creating hybrid errors. Hybrid middleware between callbacks and throws. Helpful util for modules that have hybrid APIs and want when they use promises, directly to throw the errors; when use callbacks to pass errors to first argument of this call
-- [handle-arguments](https://github.com/hybridables/handle-arguments): Handles given Arguments object - return separatly last argument (commonly callback) and other arguments as Array. Useful in node-style callback flow.
-- [manage-arguments](https://github.com/tunnckocore/manage-arguments): Prevents arguments leakage - managing arguments. From Optimization killers by Petka Antonov.
-- [is-missing](https://github.com/tunnckocore/is-missing): Check that given `name` or `user/repo` exists in npm registry or in github as user repository.
-- [is-kindof](https://github.com/tunnckocore/is-kindof): Check type of given javascript value. Support promises, generators, streams, and native types. Thin wrapper around `kind-of` module.
+- [handle-callback](https://github.com/hybridables/handle-callback): Make promise to have support for callback api, it returns… [more](https://github.com/hybridables/handle-callback)
+- [handle-errors](https://github.com/hybridables/handle-errors): Handling/creating hybrid errors. Hybrid middleware between callbacks… [more](https://github.com/hybridables/handle-errors)
+- [handle-arguments](https://github.com/hybridables/handle-arguments): Handles given Arguments object - return separatly last argument… [more](https://github.com/hybridables/handle-arguments)
+- [manage-arguments](https://github.com/tunnckocore/manage-arguments): Prevents arguments leakage - managing arguments. From… [more](https://github.com/tunnckocore/manage-arguments)
 - [is-ansi](https://github.com/tunnckocore/is-ansi): Check that given string contain ANSI color codes, without CLI
+- [is-plain-object](https://github.com/jonschlinkert/is-plain-object): Returns true if an object was created by the `Object`… [more](https://github.com/jonschlinkert/is-plain-object)
+- [is-empty-function](https://github.com/tunnckoCore/is-empty-function): Checks the given function (or fn.toString()) is with empty body… [more](https://github.com/tunnckoCore/is-empty-function)
+- [is-missing](https://github.com/tunnckocore/is-missing): Check that given `name` or `user/repo` exists in npm registry… [more](https://github.com/tunnckocore/is-missing)
+- [is-kindof](https://github.com/tunnckocore/is-kindof): Check type of given javascript value. Support promises, generators, streams… [more](https://github.com/tunnckocore/is-kindof)
+- [is-hexcolor](https://github.com/tunnckocore/is-hexcolor): Check that given value is valid hex color, using `hex-color-regex`… [more](https://github.com/tunnckocore/is-hexcolor)
+- [is-installed](https://github.com/tunnckoCore/is-installed): Checks that given package is installed on the system -… [more](https://github.com/tunnckoCore/is-installed)
+- [kind-of-extra](https://github.com/tunnckocore/kind-of-extra): Extends `kind-of` type check utility with support for promises, generators,… [more](https://github.com/tunnckocore/kind-of-extra)
 
 
 ## Contributing
