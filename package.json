@@ -1,6 +1,6 @@
 {
   "name": "kind-error",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Correct inheriting from `Error`. Supports constructing from an object of properties - focused on assertion.",
   "repository": "tunnckoCore/kind-error",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",

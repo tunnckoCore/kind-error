@@ -1,5 +1,11 @@
 
 
+## 1.0.1 - 2015-07-01
+- Release v1.0.1 / npm@v1.0.1
+- update related section
+- update tests
+- switch deps
+
 ## 1.0.0 - 2015-06-30
 - Release v1.0.0 / npm@v1.0.0
 - add related section
