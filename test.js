@@ -96,6 +96,7 @@ test('kind-error:', function () {
     })
 
     test.equal(err.name, 'AssertError')
+    test.equal(err.value, 123)
     test.equal(err.actual, 'number')
     test.equal(err.expected, 'string')
     test.equal(err.message, 'assertion')
@@ -119,6 +120,7 @@ test('kind-error:', function () {
     })
 
     test.equal(err.name, 'AssertError')
+    test.equal(err.value, 123)
     test.equal(err.actual, 'number')
     test.equal(err.expected, 'array')
     test.equal(err.message, 'expect array, but number given')

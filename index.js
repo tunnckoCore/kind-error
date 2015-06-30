@@ -9,7 +9,8 @@
 
 'use strict'
 
-var kindOf = require('kind-of')
+var isObject = require('is-plain-object')
+var kindOf = require('kind-of-extra')
 
 module.exports = KindError
 
@@ -17,11 +18,11 @@ function KindError (message, opts) {
   if (!(this instanceof KindError)) {
     throw new Error('Call KindError with `new` keyword')
   }
-  if (kindOf(message) === 'object') {
+  if (isObject(message)) {
     opts = message
     message = false
   }
-  opts = kindOf(opts) === 'object' ? opts : {}
+  opts = isObject(opts) ? opts : {}
 
   if (message) {
     this.message = message
@@ -32,7 +33,8 @@ function KindError (message, opts) {
     }
   }
   if (this.actual) {
-    this.value = this.actual
+    var actual = this.actual
+    this.value = actual
     this.actual = kindOf(this.actual)
   }
   if (this.actual && this.expected && !this.message) {
