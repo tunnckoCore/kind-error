@@ -14,6 +14,7 @@ npm test
 
 ## Features
 - You can customize error name with `name` property in options object.
+- Creating custom error classes/subclass
 - By default won't have `stack` property in the composed error object.
 - You should pass `showStack: true` in options if you want stacktraces.
 - If `actual` and `expected` is given, will compose `message` automatically.
@@ -67,6 +68,30 @@ var err = new KindError(error)
 //=> err
 // err.name => 'TypeError'
 // err.message => 'msg'
+```
+
+## Example AppError
+> Here we show how to create new error class
+
+```js
+var util = require('util')
+var KindError = require('kind-error')
+
+function AppError () {
+  KindError.apply(this, arguments)
+  this.name = 'AppError'
+}
+util.inherits(AppError, KindError)
+AppError.prototype.foo = function () {
+  return 123
+}
+
+var err = new AppError('foo bar', {baz: 'qux'})
+//=> err
+// err.name => 'AppError'
+// err.message => 'foo bar'
+// err.baz => 'qux'
+// err.foo() => 123
 ```
 
 
