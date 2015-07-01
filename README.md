@@ -61,6 +61,12 @@ var err = new KindError({name: 'MyError', showStack: true})
 //=> err
 // err.name => 'MyError'
 // err.stack => correct stack trace
+
+var error = new TypeError('msg')
+var err = new KindError(error)
+//=> err
+// err.name => 'TypeError'
+// err.message => 'msg'
 ```
 
 
