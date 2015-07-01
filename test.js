@@ -9,6 +9,7 @@
 
 'use strict'
 
+var util = require('util')
 var test = require('assertit')
 var KindError = require('./index')
 
@@ -163,6 +164,25 @@ test('kind-error:', function () {
 
     test.equal(err.name, 'TypeError')
     test.equal(err.message, 'msg')
+    test.equal(err instanceof Error, true)
+    done()
+  })
+  test('should create custom AppError class', function (done) {
+    function AppError () {
+      KindError.apply(this, arguments)
+      this.name = 'AppError'
+    }
+    util.inherits(AppError, KindError)
+    AppError.prototype.foo = function () {
+      return 123
+    }
+
+    var err = new AppError('foo bar', {baz: 'qux'})
+
+    test.equal(err.name, 'AppError')
+    test.equal(err.message, 'foo bar')
+    test.equal(err.baz, 'qux')
+    test.equal(err.foo(), 123)
     test.equal(err instanceof Error, true)
     done()
   })
