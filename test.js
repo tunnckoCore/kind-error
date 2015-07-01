@@ -167,22 +167,7 @@ test('kind-error:', function () {
     done()
   })
   test('should work with falsey value in `opts.actual`, see #3', function (done) {
-    var actualNull = new KindError({
-      actual: null,
-      expected: 'number'
-    })
-    var actualFalse = new KindError({
-      actual: false,
-      expected: 'number'
-    })
-    var actualUndefined = new KindError({
-      actual: undefined,
-      expected: 'number'
-    })
-
-    test.equal(actualNull.message, 'expect number, but null given')
-    test.equal(actualFalse.message, 'expect number, but boolean given')
-    test.equal(actualUndefined.message, 'expect number, but undefined given')
+    require('./test/actual-falsey-values')
     done()
   })
   test('should create custom AppError class', function (done) {
