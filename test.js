@@ -5,7 +5,7 @@
  * Released under the MIT license.
  */
 
-/* jshint asi:true */
+/* jshint asi:true, newcap:false */
 
 'use strict'
 
