@@ -35,16 +35,16 @@ function KindError (message, opts) {
   if (opts.message || message) {
     this.message = opts.message || message || ''
   }
-  if (this.actual) {
+  if (hasOwn(this, 'actual')) {
     var actual = this.actual
     this.value = actual
     this.actual = kindOf(actual)
     this.inspected = inspect(this.value).replace(/\'/g, '')
   }
-  if (this.actual && this.expected && (!this.message || !this.message.length)) {
+  if (hasOwn(this, 'actual') && hasOwn(this, 'expected') && (!hasOwn(this, 'message') || !this.message.length)) {
     this.message = format('expect %s, but %s given', this.expected, this.actual)
   }
-  if (this.showStack === true && !this.stack) {
+  if (this.showStack === true && !hasOwn(this, 'stack')) {
     Error.captureStackTrace(this, this.constructor)
   }
 }
@@ -52,3 +52,7 @@ function KindError (message, opts) {
 KindError.prototype = Object.create(Error.prototype, {
   constructor: {value: KindError, configurable: true, writable: true}
 })
+
+function hasOwn (self, val) {
+  return Object.prototype.hasOwnProperty.call(self, val)
+}
