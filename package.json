@@ -10,8 +10,9 @@
     "test": "standard && node test.js"
   },
   "dependencies": {
-    "is-plain-object": "~2.0.1",
-    "kind-of-extra": "~1.0.0"
+    "isobject": "~1.0.0",
+    "kind-of-extra": "~1.0.0",
+    "object.defaults": "^0.3.0"
   },
   "devDependencies": {
     "assertit": "^0.1.0"

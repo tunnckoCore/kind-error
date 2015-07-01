@@ -9,8 +9,13 @@
 
 'use strict'
 
-var isObject = require('is-plain-object')
+var isObject = require('isobject')
+var defaults = require('object.defaults')
 var kindOf = require('kind-of-extra')
+
+var util = require('util')
+var format = util.format
+var inspect = util.inspect
 
 module.exports = KindError
 
@@ -23,22 +28,21 @@ function KindError (message, opts) {
     message = false
   }
   opts = isObject(opts) ? opts : {}
+  defaults(this, opts)
 
-  if (message) {
-    this.message = message
-  }
-  if (Object.keys(opts).length > 0) {
-    for (var prop in opts) {
-      this[prop] = opts[prop]
-    }
+  this.name = opts.name || 'KindError'
+
+  if (opts.message || message) {
+    this.message = opts.message || message || ''
   }
   if (this.actual) {
     var actual = this.actual
     this.value = actual
-    this.actual = kindOf(this.actual)
+    this.actual = kindOf(actual)
+    this.inspected = inspect(this.value).replace(/\'/g, '')
   }
-  if (this.actual && this.expected && !this.message) {
-    this.message = 'expect ' + this.expected + ', but ' + this.actual + ' given'
+  if (this.actual && this.expected && (!this.message || !this.message.length)) {
+    this.message = format('expect %s, but %s given', this.expected, this.actual)
   }
   if (this.showStack === true && !this.stack) {
     Error.captureStackTrace(this, this.constructor)
@@ -48,4 +52,3 @@ function KindError (message, opts) {
 KindError.prototype = Object.create(Error.prototype, {
   constructor: {value: KindError, configurable: true, writable: true}
 })
-KindError.prototype.name = 'KindError'
