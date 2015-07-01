@@ -13,13 +13,13 @@ var test = require('assertit')
 var KindError = require('./index')
 
 test('kind-error:', function () {
-  test('should throw Error if not invoked with `new`', function (done) {
-    function fixture () {
-      KindError()
-    }
+  test('should be able to invoke without `new` keyword', function (done) {
+    var err = KindError()
 
-    test.throws(fixture, Error)
-    test.throws(fixture, /Call KindError.*/)
+    test.equal(err.name, 'KindError')
+    test.equal(err.message, '')
+    test.equal(err.stack, undefined)
+    test.equal(err instanceof Error, true)
     done()
   })
   test('should composed error object be instanceof Error', function (done) {

@@ -21,7 +21,7 @@ module.exports = KindError
 
 function KindError (message, opts) {
   if (!(this instanceof KindError)) {
-    throw new Error('Call KindError with `new` keyword')
+    return new KindError(message, opts)
   }
   if (isObject(message)) {
     opts = message
