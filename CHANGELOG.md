@@ -1,5 +1,9 @@
 
 
+## 1.2.0 - 2015-07-01
+- Release v1.2.0 / npm@v1.2.0
+- allow `opts.actual` to be falsey value, fix and close #3
+
 ## 1.1.0 - 2015-07-01
 - Release v1.1.0 / npm@v1.1.0
 - codeclimate: fix complexity

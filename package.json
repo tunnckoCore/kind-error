@@ -1,6 +1,6 @@
 {
   "name": "kind-error",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Correct inheriting from `Error`. Supports constructing from an object of properties - focused on assertion.",
   "repository": "tunnckoCore/kind-error",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
@@ -12,7 +12,7 @@
   "dependencies": {
     "isobject": "~1.0.0",
     "kind-of-extra": "~1.0.0",
-    "object.defaults": "^0.3.0"
+    "object.defaults": "~0.3.0"
   },
   "devDependencies": {
     "assertit": "^0.1.0"
