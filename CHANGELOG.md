@@ -1,5 +1,15 @@
 
 
+## 1.1.0 - 2015-07-01
+- Release v1.1.0 / npm@v1.1.0
+- codeclimate: fix complexity
+- codeclimate: disable jshint `newcap`
+- add creating AppError example
+- add creating custom error class test
+- allow invoking without `new` keyword
+- update usage
+- refactor, add more tests
+
 ## 1.0.1 - 2015-07-01
 - Release v1.0.1 / npm@v1.0.1
 - update related section
