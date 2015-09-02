@@ -66,6 +66,31 @@ KindError.prototype = Object.create(Error.prototype, {
   constructor: {value: KindError, configurable: true, writable: true}
 })
 
+KindError.prototype.toString = function () {
+  var str = [
+    this.name + ' in ' + this.filename + ' at line ' + this.line + ', column ' + this.column,
+    '',
+    '    actual: ' + this.actual,
+    '  expected: ' + this.expected,
+    '   message: ' + this.message,
+    '     value: ' + util.inspect(this.value),
+    ''
+  ]
+
+  if (this.showStack) {
+    str = str.concat([
+      this.stack,
+      ''
+    ])
+  }
+
+  if (this.actual && this.expected) {
+    return str.join('\n')
+  }
+
+  return this.name + ': ' + this.message
+}
+
 /**
  * utils
  */
