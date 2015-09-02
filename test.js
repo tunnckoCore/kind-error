@@ -123,20 +123,7 @@ test('kind-error:', function () {
     done()
   })
   test('should have better .toString() when `actual` and `expected`', function (done) {
-    var err = new KindError({
-      name: 'BetterError',
-      actual: {foo: 'bar'},
-      expected: 'string'
-    })
-    var str = err.toString()
-
-    test.ok(str.indexOf('actual: object') !== -1)
-    test.ok(str.indexOf('expected: string') !== -1)
-    test.ok(str.indexOf('BetterError: expect `string`, but `object` given') !== -1)
-    test.equal(err.toString().length > 10, true)
-    test.equal(typeof err.toString, 'function')
-    test.equal(typeof err.toString(), 'string')
-    test.equal(err instanceof Error, true)
+    require('./test/better-tostring')
     done()
   })
   test('should create `message`, if only `actual` and `expected` given', function (done) {
@@ -166,21 +153,11 @@ test('kind-error:', function () {
     done()
   })
   test('should inherit name from given error object', function (done) {
-    var error = new SyntaxError()
-    var err = new KindError(error)
-
-    test.equal(err.name, 'SyntaxError')
-    test.equal(err.message, '')
-    test.equal(err instanceof Error, true)
+    require('./test/inherit-name')
     done()
   })
   test('should inherit message from given error object', function (done) {
-    var error = new TypeError('msg')
-    var err = new KindError(error)
-
-    test.equal(err.name, 'TypeError')
-    test.equal(err.message, 'msg')
-    test.equal(err instanceof Error, true)
+    require('./test/inherit-message')
     done()
   })
   test('should work with falsey value in `opts.actual`, see #3', function (done) {
