@@ -1,5 +1,11 @@
 
 
+## 1.3.0 - 2015-09-03
+- Release v1.3.0 / npm@v1.3.0
+- update tests and features list
+- implement `.toString` method
+- update, bump deps
+
 ## 1.2.0 - 2015-07-01
 - Release v1.2.0 / npm@v1.2.0
 - allow `opts.actual` to be falsey value, fix and close #3
