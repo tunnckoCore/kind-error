@@ -68,11 +68,9 @@ KindError.prototype = Object.create(Error.prototype, {
 
 KindError.prototype.toString = function () {
   var str = [
-    this.name + ' in ' + this.filename + ' at line ' + this.line + ', column ' + this.column,
-    '',
+    this.name + ': ' + this.message,
     '    actual: ' + this.actual,
     '  expected: ' + this.expected,
-    '   message: ' + this.message,
     '     value: ' + util.inspect(this.value),
     ''
   ]
