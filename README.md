@@ -26,6 +26,7 @@ npm i kind-error --save
 
 - `[message]` **{String|Object}** error message or `options` object
 - `[options]` **{Object}** custom error properties
+- `returns` **{Object}** error object, instance of `Error`
 
 **Example**
 

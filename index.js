@@ -25,6 +25,7 @@ var isObject = require('is-real-object')
  *
  * @param {String|Object} `[message]` error message or `options` object
  * @param {Object} `[options]` custom error properties
+ * @returns {Object} error object, instance of `Error`
  * @api public
  */
 
