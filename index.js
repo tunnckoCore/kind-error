@@ -10,7 +10,6 @@
 'use strict'
 
 var util = require('util')
-var kindOf = require('kind-of-extra')
 var isObject = require('is-real-object')
 
 /**
@@ -45,9 +44,9 @@ function KindError (message, options) {
   this.message = options.message || message || ''
 
   if (hasOwn(this, 'actual')) {
-    var actual = this.actual
-    this.value = actual
-    this.actual = kindOf(actual)
+    var kindOf = require('kind-of-extra')
+    this.value = this.actual
+    this.actual = kindOf(this.actual)
     this.inspected = util.inspect(this.value)
   }
   if (hasOwn(this, 'actual') && hasOwn(this, 'expected') && (!hasOwn(this, 'message') || !this.message.length)) {
