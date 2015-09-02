@@ -135,7 +135,7 @@ test('kind-error:', function () {
     test.equal(err.actual, 'number')
     test.equal(err.expected, 'array')
     test.equal(err.inspected, '123')
-    test.equal(err.message, 'expect array, but number given')
+    test.equal(err.message, 'expect `array`, but `number` given')
     test.equal(err instanceof Error, true)
     done()
   })

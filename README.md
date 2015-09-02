@@ -1,6 +1,6 @@
-# kind-error [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] 
+# [kind-error][author-www-url] [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] 
 
-> Correct inheriting from `Error`. Supports constructing from an object of properties - focused on assertion.
+> Base class for easily creating meaningful and quiet by default Error classes.
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
@@ -8,18 +8,18 @@
 ## Install
 ```
 npm i kind-error --save
-npm test
 ```
 
 
 ## Features
-- You can customize error name with `name` property in options object.
 - Creating custom error classes/subclass
+- You can customize error name with `name` property in options object.
 - By default won't have `stack` property in the composed error object.
 - You should pass `showStack: true` in options if you want stacktraces.
 - If `actual` and `expected` is given, will compose `message` automatically.
 - If `actual` is given, will change it to it's type, using `kindof(actual)`.
   + it will move `actual` value to `value` property
+
 
 ## Usage
 > For more use-cases see the [tests](./test.js)
@@ -81,7 +81,9 @@ function AppError () {
   KindError.apply(this, arguments)
   this.name = 'AppError'
 }
+
 util.inherits(AppError, KindError)
+
 AppError.prototype.foo = function () {
   return 123
 }
@@ -96,22 +98,11 @@ var err = new AppError('foo bar', {baz: 'qux'})
 
 
 ## Related
-- [assertit](https://github.com/tunnckoCore/assertit): Thin sugar layer on top of `testit` framework, `is-kindof` and… [more](https://github.com/tunnckoCore/assertit)
-- [assert-kindof](https://github.com/tunnckoCore/assert-kindof): Check native type of the given value and throw TypeError… [more](https://github.com/tunnckoCore/assert-kindof)
-- [always-callback](https://github.com/tunnckocore/always-callback): Create callback api for given sync function. Guarantee that given… [more](https://github.com/tunnckocore/always-callback)
-- [make-callback](https://github.com/tunnckocore/make-callback): Make synchronous function or generator to support callback api
-- [handle-callback](https://github.com/hybridables/handle-callback): Make promise to have support for callback api, it returns… [more](https://github.com/hybridables/handle-callback)
-- [handle-errors](https://github.com/hybridables/handle-errors): Handling/creating hybrid errors. Hybrid middleware between callbacks… [more](https://github.com/hybridables/handle-errors)
-- [handle-arguments](https://github.com/hybridables/handle-arguments): Handles given Arguments object - return separatly last argument… [more](https://github.com/hybridables/handle-arguments)
-- [manage-arguments](https://github.com/tunnckocore/manage-arguments): Prevents arguments leakage - managing arguments. From… [more](https://github.com/tunnckocore/manage-arguments)
-- [is-ansi](https://github.com/tunnckocore/is-ansi): Check that given string contain ANSI color codes, without CLI
-- [is-plain-object](https://github.com/jonschlinkert/is-plain-object): Returns true if an object was created by the `Object`… [more](https://github.com/jonschlinkert/is-plain-object)
-- [is-empty-function](https://github.com/tunnckoCore/is-empty-function): Checks the given function (or fn.toString()) is with empty body… [more](https://github.com/tunnckoCore/is-empty-function)
-- [is-missing](https://github.com/tunnckocore/is-missing): Check that given `name` or `user/repo` exists in npm registry… [more](https://github.com/tunnckocore/is-missing)
-- [is-kindof](https://github.com/tunnckocore/is-kindof): Check type of given javascript value. Support promises, generators, streams… [more](https://github.com/tunnckocore/is-kindof)
-- [is-hexcolor](https://github.com/tunnckocore/is-hexcolor): Check that given value is valid hex color, using `hex-color-regex`… [more](https://github.com/tunnckocore/is-hexcolor)
-- [is-installed](https://github.com/tunnckoCore/is-installed): Checks that given package is installed on the system -… [more](https://github.com/tunnckoCore/is-installed)
-- [kind-of-extra](https://github.com/tunnckocore/kind-of-extra): Extends `kind-of` type check utility with support for promises, generators,… [more](https://github.com/tunnckocore/kind-of-extra)
+- [abbrev-kindof](https://github.com/tunnckoCore/abbrev-kindof): Use abbreviations for checking type of given value. Like `kindof(val, 'soa')` to check that value is string, object or array.
+- [assert-kindof](https://github.com/tunnckoCore/assert-kindof): Check native type of the given value and throw TypeError if not okey. Expressive, elegant, behavior-driven API, good descriptive default error messages, simple and clean syntax.
+- [is-kindof](https://github.com/tunnckocore/is-kindof): Check type of given javascript value. Support promises, generators, streams, and native types. Thin wrapper around `kind-of` module.
+- [kind-of-extra](https://github.com/tunnckocore/kind-of-extra): Extends `kind-of` type check utility with support for promises, generators, streams and errors. Like `kindof(Promise.resolve(1)) //=> 'promise'` and etc.
+- [kind-of-types](https://github.com/tunnckocore/kind-of-types): List of all javascript types. Used and useful for checking, validation, sanitizing and testing. Like isStream, isPromise, isWeakset and etc.
 
 
 ## Contributing
@@ -166,4 +157,4 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 [freenode-img]: https://img.shields.io/badge/freenode-%23charlike-5654a4.svg
 
 [new-message-url]: https://github.com/tunnckoCore/messages
-[new-message-img]: https://img.shields.io/badge/send%20me-message-green.svg
+[new-message-img]: https://img.shields.io/badge/ask%20me-anything-green.svg

@@ -25,6 +25,6 @@ var actualUndefined = new KindError({
   expected: 'number'
 })
 
-test.equal(actualNull.message, 'expect number, but null given')
-test.equal(actualFalse.message, 'expect number, but boolean given')
-test.equal(actualUndefined.message, 'expect number, but undefined given')
+test.equal(actualNull.message, 'expect `number`, but `null` given')
+test.equal(actualFalse.message, 'expect `number`, but `boolean` given')
+test.equal(actualUndefined.message, 'expect `number`, but `undefined` given')
