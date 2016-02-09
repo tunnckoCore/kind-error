@@ -13,7 +13,6 @@ var isObject = require('is-plain-object')
 var tryRequire = require('try-require-please')
 var errorBase = require('error-base')
 var delegate = require('delegate-properties')
-var define = require('define-property')
 
 /**
  * > Initialize `KindError` class with `message` and `options`.
@@ -37,19 +36,24 @@ var define = require('define-property')
  * @api public
  */
 var KindError = errorBase('KindError', function (message, options) {
-  // @todo use `is-plain-object`
   if (isObject(message)) {
     options = message
     message = ''
   }
 
-  delegate(this, extend({
+  options = extend({
     name: 'KindError',
     showStack: false,
     detailed: false,
     message: message && message.length && message || messageFormat
-  }, options))
-  delegateSpecial(this)
+  }, options)
+
+  delegate(this, options)
+  delegateOptional(this)
+  delegate(this, {
+    message: typeof this.message === 'string' ? this.message : '',
+    showStack: typeof this.showStack === 'boolean' ? this.showStack : false
+  })
 
   if (this.showStack === true && !hasOwn(this, 'stack')) {
     Error.captureStackTrace(this, this.constructor)
@@ -63,27 +67,27 @@ var KindError = errorBase('KindError', function (message, options) {
  * @param  {Object} `self`
  * @return {Object}
  */
-function delegateSpecial (self) {
+function delegateOptional (self) {
   if (hasOwn(self, 'actual') && hasOwn(self, 'expected')) {
     var kindOf = tryRequire('kind-of-extra', 'kind-error')
-    define(self, 'orig', {
-      actual: self.actual,
-      expected: self.expected
+    delegate(self, {
+      orig: {
+        actual: self.actual,
+        expected: self.expected
+      },
+      type: {
+        actual: kindOf(self.actual),
+        expected: kindOf(self.expected)
+      },
+      inspect: {
+        actual: util.inspect(self.actual),
+        expected: util.inspect(self.expected)
+      }
     })
-    define(self, 'type', {
-      actual: kindOf(self.actual),
-      expected: kindOf(self.expected)
-    })
-    define(self, 'inspect', {
-      actual: util.inspect(self.actual),
-      expected: util.inspect(self.expected)
-    })
-    if (kindOf(self.message) === 'function') {
+    if (typeof self.message === 'function') {
       self.message = self.message.call(self, self.type, self.inspect) // eslint-disable-line no-useless-call
     }
   }
-  define(self, 'message', typeof self.message === 'string' ? self.message : '')
-  define(self, 'showStack', typeof self.showStack === 'boolean' ? self.showStack : false)
   return self
 }
 

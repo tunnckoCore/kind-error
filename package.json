@@ -11,7 +11,6 @@
     "test": "standard && node test.js"
   },
   "dependencies": {
-    "define-property": "^0.2.5",
     "delegate-properties": "^0.3.0",
     "error-base": "git+https://github.com/tunnckoCore/error-base.git",
     "extend-shallow": "^2.0.1",
