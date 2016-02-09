@@ -22,52 +22,51 @@ npm i kind-error --save
 ## Usage
 > For more use-cases see the [tests](./test.js)
 
-- `[message]` **{String|Object}** error message or `options` object
-- `[options]` **{Object}** custom error properties
-- `returns` **{Object}** error object, instance of `Error`
+```js
+const KindError = require('kind-error')
+```
+
+### [KindError](index.js#L39)
+> Initialize `KindError` class with `message` and `options`.
+
+**Params**
+
+* `message` **{Object|String}**
+* `[options]` **{Object}**
+* `returns` **{Object}**: instance of Error
 
 **Example**
 
 ```js
-var KindError = require('kind-error')
-
-var err = new KindError('foo bar', {custom: 123})
-//=> err
-// err.name => 'KindError'
-// err.message => 'foo bar'
-// err.custom => 123
-// err.stack => property not exists
-
-var err = new KindError({name: 'MyCustomErr', message: 'foo bar baz'})
-//=> err
-// err.name => 'MyCustomErr'
-// err.message => 'foo bar baz'
-// err.stack => property not exists
-
-var err = new KindError({
-  name: 'AssertError',
-  actual: 123,
-  expected: 'array'
+const err = new KindError('msg', {
+  showStack: true,
+  custom: 123
 })
-//=> err
-// err.name => 'AssertError'
-// err.actual => 'number'
-// err.expected => 'array'
-// err.value => 123
-// err.message => 'expected array, but number given'
-// err.stack => property not exists
 
-var err = new KindError({name: 'MyError', showStack: true})
-//=> err
-// err.name => 'MyError'
-// err.stack => correct stack trace
-
-var error = new TypeError('msg')
-var err = new KindError(error)
-//=> err
-// err.name => 'TypeError'
-// err.message => 'msg'
+console.log(err) // => [KindError: msg]
+console.log(err.custom) // => 123
+console.log(err.stack) // => error stack trace
 ```
+
+Or if you give `actual` and `expected` it will make default `message`. See this example.
+
+```js
+const assert = require('assert')
+const err = new KindError({
+  actual: [1, 2, 3],
+  expected: {foo: 'bar'}
+})
+
+assert.deepEqual(err.actual, [1, 2, 3])
+assert.deepEqual(err.expected, {foo: 'bar'})
+assert.strictEqual(err.stack, undefined)
+assert.strictEqual(err.type.actual, 'array')
+assert.strictEqual(err.type.expected, 'object')
+assert.strictEqual(err.inspect.actual, '[ 1, 2, 3 ]')
+assert.strictEqual(err.inspect.expected, '{ foo: \'bar\' }')
+assert.strictEqual(err.message, 'expect `object`, but `array` given')
+```
+
 
 ## Example AppError
 > Here we show how to create new error class
@@ -102,6 +101,7 @@ var err = new AppError('foo bar', {baz: 'qux'})
 - [is-kindof](https://github.com/tunnckocore/is-kindof): Check type of given javascript value. Support promises, generators, streams, and native types. Thin wrapper around `kind-of` module.
 - [kind-of-extra](https://github.com/tunnckocore/kind-of-extra): Extends `kind-of` type check utility with support for promises, generators, streams and errors. Like `kindof(Promise.resolve(1)) //=> 'promise'` and etc.
 - [kind-of-types](https://github.com/tunnckocore/kind-of-types): List of all javascript types. Used and useful for checking, validation, sanitizing and testing. Like isStream, isPromise, isWeakset and etc.
+- [error-base](https://github.com/doowb/error-base): Create custom Error classes.
 
 
 ## Contributing

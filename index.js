@@ -18,9 +18,23 @@ var define = require('define-property')
 /**
  * > Initialize `KindError` class with `message` and `options`.
  *
+ * **Example**
+ *
+ * ```js
+ * const err = new KindError('msg', {
+ *   showStack: true,
+ *   custom: 123
+ * })
+ *
+ * console.log(err) // => [KindError: msg]
+ * console.log(err.custom) // => 123
+ * console.log(err.stack) // => error stack trace
+ * ```
+ *
  * @param  {Object|String} `message`
  * @param  {Object} `[options]`
  * @return {Object} instance of Error
+ * @api public
  */
 var KindError = errorBase('KindError', function (message, options) {
   // @todo use `is-plain-object`
