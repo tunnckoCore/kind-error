@@ -1,20 +1,27 @@
 {
   "name": "kind-error",
   "version": "1.3.0",
-  "description": "Base class for easily creating meaningful and quiet by default Error classes.",
+  "description": "Base class for easily creating meaningful and quiet by default Error classes with sane defaults and assertion in mind.",
   "repository": "tunnckoCore/kind-error",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "precommit.silent": true,
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "test": "standard && node test.js"
   },
   "dependencies": {
-    "is-real-object": "^1.0.1",
-    "kind-of-extra": "^1.0.0"
+    "define-property": "^0.2.5",
+    "delegate-properties": "^0.3.0",
+    "error-base": "git+https://github.com/tunnckoCore/error-base.git",
+    "extend-shallow": "^2.0.1",
+    "is-plain-object": "^2.0.1",
+    "try-require-please": "^1.0.0"
   },
   "devDependencies": {
-    "assertit": "^0.1.0"
+    "assertit": "^0.1.0",
+    "kind-of-extra": "^1.0.1",
+    "pre-commit": "*"
   },
   "files": [
     "index.js"
@@ -22,16 +29,20 @@
   "keywords": [
     "assert",
     "assertion",
+    "base",
     "check",
-    "construct",
+    "class",
+    "classes",
     "correct",
+    "create",
+    "defaults",
     "error",
-    "extend",
-    "inherit",
     "kind",
+    "kind-error",
+    "kind-of",
     "kindof",
-    "lib",
-    "property",
+    "of",
+    "quiet",
     "tool",
     "type",
     "typeof",

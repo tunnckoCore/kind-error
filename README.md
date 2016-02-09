@@ -12,14 +12,11 @@ npm i kind-error --save
 
 
 ## Features
-- Creating custom error classes/subclass
 - You can customize error name with `name` property in options object.
 - By default won't have `stack` property in the composed error object.
 - You should pass `showStack: true` in options if you want stacktraces.
 - Composes meaningful error output if `actual` and `expected` given.
 - If `actual` and `expected` is given, will compose `message` automatically.
-- If `actual` is given, will change it to it's type, using `kindof(actual)`.
-  + it will move `actual` value to `value` property
 
 
 ## Usage
@@ -120,7 +117,7 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 [npmjs-url]: https://www.npmjs.com/package/kind-error
 [npmjs-img]: https://img.shields.io/npm/v/kind-error.svg?label=kind-error
 
-[license-url]: https://github.com/tunnckoCore/kind-error/blob/master/LICENSE.md
+[license-url]: https://github.com/tunnckoCore/kind-error/blob/master/LICENSE
 [license-img]: https://img.shields.io/badge/license-MIT-blue.svg
 
 

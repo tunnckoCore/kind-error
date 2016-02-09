@@ -1,171 +1,142 @@
 /*!
  * kind-error <https://github.com/tunnckoCore/kind-error>
  *
- * Copyright (c) 2015 Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)
+ * Copyright (c) 2015-2016 Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)
  * Released under the MIT license.
  */
 
-/* jshint asi:true, newcap:false */
+/* jshint asi:true */
 
 'use strict'
 
 var test = require('assertit')
 var KindError = require('./index')
 
-test('kind-error:', function () {
-  test('should be able to invoke without `new` keyword', function (done) {
-    var err = KindError()
+test('should work as normal error class and dont have `.stack` prop by default', function (done) {
+  var err = new KindError('foo bar')
 
-    test.equal(err.name, 'KindError')
-    test.equal(err.message, '')
-    test.equal(err.stack, undefined)
-    test.equal(err instanceof Error, true)
-    done()
-  })
-  test('should composed error object be instanceof Error', function (done) {
-    var err = new KindError()
+  test.strictEqual(err.stack, undefined)
+  test.strictEqual(err.message, 'foo bar')
+  test.strictEqual(err instanceof Error, true)
+  done()
+})
 
-    test.equal(err instanceof Error, true)
-    done()
+test('should have `.stack` when `showStack:true` and have custom properties', function (done) {
+  var err = new KindError('msg', {
+    showStack: true,
+    custom: 123
   })
-  test('should have proper name and dont have stack by default', function (done) {
-    var err = new KindError()
 
-    test.equal(err.name, 'KindError')
-    test.equal(err.stack, undefined)
-    test.equal(err instanceof Error, true)
-    done()
-  })
-  test('should have proper stack if `showStack: true`', function (done) {
-    var err = new KindError({showStack: true})
+  test.strictEqual(err.showStack, true)
+  test.strictEqual(err.message, 'msg')
+  test.strictEqual(err.stack.indexOf('at') !== -1, true)
+  test.strictEqual(err.stack.indexOf('kind-error/test.js') !== -1, true)
+  test.strictEqual(err.custom, 123)
+  done()
+})
 
-    test.ok(err.stack)
-    test.equal(err.name, 'KindError')
-    test.equal(err.stack.length > 5, true)
-    test.equal(err instanceof Error, true)
-    done()
+test('should support passing `.message` property if only `options` param given', function (done) {
+  var err = new KindError({
+    abc: 456,
+    message: 'some msg'
   })
-  test('should dont have stack if showStack given but not true', function (done) {
-    var err = new KindError({name: 'HideError', showStack: 123})
 
-    test.equal(err.name, 'HideError')
-    test.equal(err.stack, undefined)
-    test.equal(err instanceof Error, true)
-    done()
-  })
-  test('should support custom message', function (done) {
-    var err = new KindError('foo bar')
+  test.strictEqual(err.abc, 456)
+  test.strictEqual(err.message, 'some msg')
+  done()
+})
 
-    test.equal(err.name, 'KindError')
-    test.equal(err.message, 'foo bar')
-    test.equal(err instanceof Error, true)
-    done()
+test('should have additional properties if `.actual` and `.expected` given on `options', function (done) {
+  var err = new KindError({
+    actual: [1, 2, 3],
+    expected: {foo: 'bar'}
   })
-  test('should support custom properties', function (done) {
-    var err = new KindError('foo bar', {custom: 123})
 
-    test.equal(err.name, 'KindError')
-    test.equal(err.message, 'foo bar')
-    test.equal(err instanceof Error, true)
-    test.equal(err.custom, 123)
-    done()
-  })
-  test('should support change of name from opts', function (done) {
-    var err = new KindError('custom name', {name: 'MyErr'})
+  test.deepEqual(err.actual, [1, 2, 3])
+  test.deepEqual(err.expected, {foo: 'bar'})
+  test.strictEqual(err.type.actual, 'array')
+  test.strictEqual(err.type.expected, 'object')
+  test.strictEqual(err.inspect.actual, '[ 1, 2, 3 ]')
+  test.strictEqual(err.inspect.expected, '{ foo: \'bar\' }')
+  test.strictEqual(err.message, 'expect `object`, but `array` given')
+  done()
+})
 
-    test.equal(err.name, 'MyErr')
-    test.equal(err.message, 'custom name')
-    test.equal(err instanceof Error, true)
-    done()
+test('should create meaningful default message when `.actual` and `.expected` given', function (done) {
+  var err = new KindError({
+    actual: 'a.b.c',
+    expected: 1234
   })
-  test('should override message when given in opts', function (done) {
-    var err = new KindError('custom name', {name: 'MyErr', message: 'my msg'})
 
-    test.equal(err.name, 'MyErr')
-    test.equal(err.message, 'my msg')
-    test.equal(err instanceof Error, true)
-    done()
-  })
-  test('should support to give only object to constructor', function (done) {
-    var err = new KindError({custom: 123, message: 'custom msg'})
+  test.strictEqual(err.message, 'expect `number`, but `string` given')
+  done()
+})
 
-    test.equal(err.name, 'KindError')
-    test.equal(err.custom, 123)
-    test.equal(err.message, 'custom msg')
-    test.equal(err instanceof Error, true)
-    done()
+test('should save provided `message` when `.actual` and `.expected` given', function (done) {
+  var err = new KindError({
+    message: 'foo bar baz',
+    actual: 123,
+    expected: 456
   })
-  test('should change `actual` to `typeof actual` if given', function (done) {
-    var err = new KindError({
-      name: 'AssertError',
-      actual: 123,
-      expected: 'string',
-      message: 'assertion'
-    })
 
-    test.equal(err.name, 'AssertError')
-    test.equal(err.value, 123)
-    test.equal(err.actual, 'number')
-    test.equal(err.expected, 'string')
-    test.equal(err.inspected, '123')
-    test.equal(err.message, 'assertion')
-    test.equal(err instanceof Error, true)
-    done()
-  })
-  test('should have proper .toString()', function (done) {
-    var err = new KindError('proper to string', {name: 'ProperError'})
+  test.strictEqual(err.message, 'foo bar baz')
+  test.strictEqual(err.actual, 123)
+  test.strictEqual(err.expected, 456)
+  done()
+})
 
-    test.equal(err.toString(), 'ProperError: proper to string')
-    test.equal(err.toString().length > 10, true)
-    test.equal(typeof err.toString, 'function')
-    test.equal(typeof err.toString(), 'string')
-    test.equal(err instanceof Error, true)
-    done()
-  })
-  test('should have better .toString() when `actual` and `expected`', function (done) {
-    require('./test/better-tostring')
-    done()
-  })
-  test('should create `message`, if only `actual` and `expected` given', function (done) {
-    var err = new KindError({
-      name: 'AssertError',
-      actual: 123,
-      expected: 'array',
-      showStack: true
-    })
+test('should allow `message` to be function when `.actual` and `.expected` given', function (done) {
+  var err = new KindError({
+    message: function (type, inspect) {
+      test.strictEqual(type.actual, 'array')
+      test.strictEqual(type.expected, 'object')
+      test.strictEqual(inspect.actual, '[ 4, 5, 6 ]')
+      test.strictEqual(inspect.expected, '{ baz: 123 }')
 
-    test.equal(err.name, 'AssertError')
-    test.equal(err.value, 123)
-    test.equal(err.actual, 'number')
-    test.equal(err.expected, 'array')
-    test.equal(err.inspected, '123')
-    test.equal(err.message, 'expect `array`, but `number` given')
-    test.equal(err instanceof Error, true)
-    done()
+      return 'should be `' + type.expected + '`, `' + type.actual + '` is given'
+    },
+    actual: [4, 5, 6],
+    expected: {baz: 123}
   })
-  test('should be able to pass error object as `options`', function (done) {
-    var error = new TypeError()
-    var err = new KindError(error)
 
-    test.equal(err.name, 'TypeError')
-    test.equal(err.message, '')
-    test.equal(err instanceof Error, true)
-    done()
+  test.strictEqual(err.message, 'should be `object`, `array` is given')
+  test.deepEqual(err.actual, [4, 5, 6])
+  test.deepEqual(err.expected, {baz: 123})
+  done()
+})
+
+test('should have `detailed: true` for more detailed default message', function (done) {
+  var err = new KindError({
+    detailed: true,
+    actual: {a: 4},
+    expected: [5, 6, 7]
   })
-  test('should inherit name from given error object', function (done) {
-    require('./test/inherit-name')
-    done()
+
+  test.strictEqual(err.detailed, true)
+  test.deepEqual(err.actual, {a: 4})
+  test.deepEqual(err.expected, [5, 6, 7])
+  test.strictEqual(err.message, 'expect array `[ 5, 6, 7 ]`, but object `{ a: 4 }` given')
+  done()
+})
+
+test('should have enhanced `.toString` output when `.actual` and `.expected', function (done) {
+  var err = new KindError('my msg', {
+    actual: 'hello',
+    expected: 123456
   })
-  test('should inherit message from given error object', function (done) {
-    require('./test/inherit-message')
-    done()
-  })
-  test('should work with falsey value in `opts.actual`, see #3', function (done) {
-    require('./test/actual-falsey-values')
-    done()
-  })
-  test('should create custom AppError class', function (done) {
-    require('./test/app-error')
-    done()
-  })
+
+  var str = err.toString()
+  test.strictEqual(str.indexOf('actual:') !== -1, true)
+  test.strictEqual(str.indexOf('expected:') !== -1, true)
+  test.strictEqual(str.indexOf('KindError: my msg') !== -1, true)
+  done()
+})
+
+test('should have normal `.toString` when no `.actual` and `.expected`', function (done) {
+  var err = new KindError('msg')
+  var str = err.toString()
+
+  test.strictEqual(str.indexOf('KindError: msg') !== -1, true)
+  test.strictEqual(str.length, 14)
+  done()
 })
