@@ -33,6 +33,8 @@ const KindError = require('kind-error')
 
 * `message` **{Object|String}**
 * `[options]` **{Object}**
+  - `showStack` **{Boolean}** if `true` [error will have `.stack` property](./test.js#L15-L36)
+  - `detailed` **{Boolean}** if `true` [more detailed `.message` will be composed](./test.js#L108-L120)
 * `returns` **{Object}**: instance of Error
 
 **Example**

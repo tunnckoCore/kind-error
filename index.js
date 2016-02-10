@@ -32,6 +32,8 @@ var delegate = require('delegate-properties')
  *
  * @param  {Object|String} `message`
  * @param  {Object} `[options]`
+ *   @option {Boolean} `showStack` if `true` [error will have `.stack` property](./test.js#L15-L36)
+ *   @option {Boolean} `detailed` if `true` [more detailed `.message` will be composed](./test.js#L108-L120)
  * @return {Object} instance of Error
  * @api public
  */
