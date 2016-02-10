@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "delegate-properties": "^0.3.0",
-    "error-base": "git+https://github.com/tunnckoCore/error-base.git",
+    "error-base": "^0.2.0",
     "extend-shallow": "^2.0.1",
     "is-plain-object": "^2.0.1",
     "try-require-please": "^1.0.0"
