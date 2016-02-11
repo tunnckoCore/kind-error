@@ -1,5 +1,22 @@
 
 
+## 2.0.0 - 2016-02-11
+- Release v2.0.0 / npm@v2.0.0
+- add more defaults - `err.type`, `err.inspect` and `err.orig` containing:
+  + all of them exists only if `actual` and `expected` are given
+  + all of them have `.actual` and `.expected` properties
+  + `err.type` contains the type of `actual` and `expected`
+  + `err.inspect` contains the inspected value using `util.inspect` useful for outputs
+  + `err.orig` contains the original values (same as `err.actual` and `err.expected`)
+- change default output of `.toString()`
+- allow `message` option to be function when `actual` and `expected` given
+- signals/forces you to install `kind-of-extra` when `actual` and `expected` are given
+- add `detailed` option for more detailed message (composed only when `actual` and `expected` are given)
+- update repo boilerplate
+- update license year range
+- use `error-base`
+- major refactor [#74188f](https://github.com/tunnckoCore/kind-error/commit/74188fbf5940d2f40d1d04bebd9bfa9b6cbad09c) (_more info above_)
+
 ## 1.3.0 - 2015-09-03
 - Release v1.3.0 / npm@v1.3.0
 - update tests and features list
