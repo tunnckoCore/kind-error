@@ -11,7 +11,7 @@
     "test": "standard && node test.js"
   },
   "dependencies": {
-    "delegate-properties": "^0.3.0",
+    "delegate-properties": "^0.4.0",
     "error-base": "^0.2.0",
     "extend-shallow": "^2.0.1",
     "is-plain-object": "^2.0.1",
